@@ -4156,9 +4156,9 @@ class PlayState extends MusicBeatState
 		comboSpr.acceleration.y = FlxG.random.int(200, 300);
 		comboSpr.velocity.y -= FlxG.random.int(140, 160);
 		comboSpr.visible = (!ClientPrefs.hideHud && showCombo && ClientPrefs.ratingCams != 'HUD');
-		comboSpr.x += ClientPrefs.comboOffset[0];
+		comboSpr.x += ClientPrefs.comboOffset[0] - 50;
 		comboSpr.y -= ClientPrefs.comboOffset[1];
-		comboSpr.y += 25;
+		comboSpr.y += 50;
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
 		insert(members.indexOf(strumLineNotes), rating);
 		
