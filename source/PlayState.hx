@@ -4157,7 +4157,7 @@ class PlayState extends MusicBeatState
 		comboSpr.visible = (!ClientPrefs.hideHud && showCombo);
 		comboSpr.x += ClientPrefs.comboOffset[0];
 		comboSpr.y -= ClientPrefs.comboOffset[1];
-		comboSpr.y += 60;
+		comboSpr.y += 25;
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
 
 		insert(members.indexOf(strumLineNotes), rating);
@@ -4249,11 +4249,18 @@ class PlayState extends MusicBeatState
 			{
 				insert(members.indexOf(strumLineNotes), numScore);
 				insert(members.indexOf(strumLineNotes), comboSpr);
-				showCombo = true;
+				if (ClientPrefs.ratingCams == 'World')
+				{
+					showCombo = true;
+				}
+				
 			}
 			else
 			{
-				showCombo = false;
+				if (ClientPrefs.ratingCams == 'World')
+				{
+					showCombo = false;
+				}
 			}
 
 			FlxTween.tween(numScore, {alpha: 0}, 0.2, {
