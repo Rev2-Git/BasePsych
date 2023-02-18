@@ -4052,6 +4052,7 @@ class PlayState extends MusicBeatState
 	public var showComboNum:Bool = true;
 	public var showRating:Bool = true;
 
+
 	private function cachePopUpScore()
 	{
 		var pixelShitPart1:String = '';
@@ -4154,12 +4155,11 @@ class PlayState extends MusicBeatState
 		comboSpr.x = coolText.x;
 		comboSpr.acceleration.y = FlxG.random.int(200, 300);
 		comboSpr.velocity.y -= FlxG.random.int(140, 160);
-		comboSpr.visible = (!ClientPrefs.hideHud && showCombo);
+		comboSpr.visible = (!ClientPrefs.hideHud && showCombo && ClientPrefs.ratingCams != 'HUD');
 		comboSpr.x += ClientPrefs.comboOffset[0];
 		comboSpr.y -= ClientPrefs.comboOffset[1];
 		comboSpr.y += 25;
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
-
 		insert(members.indexOf(strumLineNotes), rating);
 		
 		if (!ClientPrefs.comboStacking)
@@ -4249,7 +4249,7 @@ class PlayState extends MusicBeatState
 			{
 				insert(members.indexOf(strumLineNotes), numScore);
 				insert(members.indexOf(strumLineNotes), comboSpr);
-				if (ClientPrefs.ratingCams == 'World')
+				if(ClientPrefs.ratingCams == 'World')
 				{
 					showCombo = true;
 				}
@@ -4257,7 +4257,7 @@ class PlayState extends MusicBeatState
 			}
 			else
 			{
-				if (ClientPrefs.ratingCams == 'World')
+				if(ClientPrefs.ratingCams == 'World')
 				{
 					showCombo = false;
 				}
@@ -4631,7 +4631,7 @@ class PlayState extends MusicBeatState
 			time += 0.15;
 		}
 
-		if (ClientPrefs.baseGameUI != 'Friday Night Funkin') {
+		if(ClientPrefs.baseGameUI != 'Friday Night Funkin') {
 			StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		}
 
