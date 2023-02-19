@@ -36,7 +36,7 @@ class HealthIcon extends FlxSprite
 		if (isOldIcon)
 			changeIcon('bf-old');
 		else
-			changeIcon(char);
+			changeIcon(PlayState.instance.boyfriend.healthIcon);
 	}
 
 	private var iconOffsets:Array<Float> = [0, 0];
