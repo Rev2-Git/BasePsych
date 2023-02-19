@@ -4129,7 +4129,7 @@ class PlayState extends MusicBeatState
 		{
 			case 'World':
 				rating.cameras = [camGame];
-				rating.x = FlxG.width * 0.55 - 140;
+				rating.x = FlxG.width * 0.55 - 165;
 				// make sure rating is visible lol!
 				if (rating.x < FlxG.camera.scroll.x)
 					{
@@ -4156,7 +4156,7 @@ class PlayState extends MusicBeatState
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image(pixelShitPart1 + 'combo' + pixelShitPart2));
 		comboSpr.cameras = [camGame];
 		comboSpr.y = FlxG.camera.scroll.y + FlxG.camera.height * 0.4 + 80;
-		comboSpr.x = FlxG.width * 0.55 - 100;
+		comboSpr.x = FlxG.width * 0.55 - 125;
 		// make sure combo is visible lol!
 		// 194 fits 4 combo digits
 		if (comboSpr.x < FlxG.camera.scroll.x)
