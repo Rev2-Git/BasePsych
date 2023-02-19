@@ -244,6 +244,12 @@ class ClientPrefs {
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
 		}
+		if(FlxG.save.data.ratingCams != null) {
+			ratingCams = FlxG.save.data.ratingCams;
+		}
+		if(FlxG.save.data.baseGameUI != null) {
+			baseGameUI = FlxG.save.data.baseGameUI;
+		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{
 			var savedMap:Map<String, Dynamic> = FlxG.save.data.gameplaySettings;

@@ -104,13 +104,7 @@ class NoteOffsetState extends MusicBeatState
 		coolText.x = FlxG.width * 0.35;
 
 		rating = new FlxSprite().loadGraphic(Paths.image('sick'));
-		switch (ClientPrefs.ratingCams)
-		{
-			case 'World':
-				rating.cameras = [camGame];
-			case 'HUD':
-				rating.cameras = [camHUD];
-		}
+		rating.cameras = [camHUD];
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
 		rating.updateHitbox();
 		rating.antialiasing = ClientPrefs.globalAntialiasing;
@@ -118,13 +112,7 @@ class NoteOffsetState extends MusicBeatState
 		add(rating);
 
 		comboNums = new FlxSpriteGroup();
-		switch (ClientPrefs.ratingCams)
-		{
-			case 'World':
-				comboNums.cameras = [camGame];
-			case 'HUD':
-				comboNums.cameras = [camHUD];
-		}
+		comboNums.cameras = [camHUD];
 		add(comboNums);
 
 		var seperatedScore:Array<Int> = [];
@@ -137,13 +125,7 @@ class NoteOffsetState extends MusicBeatState
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite(43 * daLoop).loadGraphic(Paths.image('num' + i));
-			switch (ClientPrefs.ratingCams)
-			{
-				case 'World':
-					numScore.cameras = [camGame];
-				case 'HUD':
-					numScore.cameras = [camHUD];
-			}
+			numScore.cameras = [camHUD];
 			numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			numScore.updateHitbox();
 			numScore.antialiasing = ClientPrefs.globalAntialiasing;
@@ -279,46 +261,23 @@ class NoteOffsetState extends MusicBeatState
 			if (FlxG.mouse.justPressed)
 			{
 				holdingObjectType = null;
-				switch (ClientPrefs.ratingCams)
+				FlxG.mouse.getScreenPosition(camHUD, startMousePos);
+				if (startMousePos.x - comboNums.x >= 0 && startMousePos.x - comboNums.x <= comboNums.width &&
+					startMousePos.y - comboNums.y >= 0 && startMousePos.y - comboNums.y <= comboNums.height)
 				{
-					case 'World':
-						FlxG.mouse.getScreenPosition(camGame, startMousePos);
-						if (startMousePos.x - comboNums.x >= 0 && startMousePos.x - comboNums.x <= comboNums.width &&
-							startMousePos.y - comboNums.y >= 0 && startMousePos.y - comboNums.y <= comboNums.height)
-						{
-							holdingObjectType = true;
-							startComboOffset.x = ClientPrefs.comboOffset[2];
-							startComboOffset.y = ClientPrefs.comboOffset[3];
-							//trace('yo bro');
-						}
-						else if (startMousePos.x - rating.x >= 0 && startMousePos.x - rating.x <= rating.width &&
-								 startMousePos.y - rating.y >= 0 && startMousePos.y - rating.y <= rating.height)
-						{
-							holdingObjectType = false;
-							startComboOffset.x = ClientPrefs.comboOffset[0];
-							startComboOffset.y = ClientPrefs.comboOffset[1];
-							//trace('heya');
-						}
-					case 'HUD':
-						FlxG.mouse.getScreenPosition(camHUD, startMousePos);
-						if (startMousePos.x - comboNums.x >= 0 && startMousePos.x - comboNums.x <= comboNums.width &&
-							startMousePos.y - comboNums.y >= 0 && startMousePos.y - comboNums.y <= comboNums.height)
-						{
-							holdingObjectType = true;
-							startComboOffset.x = ClientPrefs.comboOffset[2];
-							startComboOffset.y = ClientPrefs.comboOffset[3];
-							//trace('yo bro');
-						}
-						else if (startMousePos.x - rating.x >= 0 && startMousePos.x - rating.x <= rating.width &&
-								 startMousePos.y - rating.y >= 0 && startMousePos.y - rating.y <= rating.height)
-						{
-							holdingObjectType = false;
-							startComboOffset.x = ClientPrefs.comboOffset[0];
-							startComboOffset.y = ClientPrefs.comboOffset[1];
-							//trace('heya');
-						}
+					holdingObjectType = true;
+					startComboOffset.x = ClientPrefs.comboOffset[2];
+					startComboOffset.y = ClientPrefs.comboOffset[3];
+					//trace('yo bro');
 				}
-
+				else if (startMousePos.x - rating.x >= 0 && startMousePos.x - rating.x <= rating.width &&
+						 startMousePos.y - rating.y >= 0 && startMousePos.y - rating.y <= rating.height)
+				{
+					holdingObjectType = false;
+					startComboOffset.x = ClientPrefs.comboOffset[0];
+					startComboOffset.y = ClientPrefs.comboOffset[1];
+					//trace('heya');
+				}
 			}
 			if(FlxG.mouse.justReleased) {
 				holdingObjectType = null;
@@ -329,22 +288,11 @@ class NoteOffsetState extends MusicBeatState
 			{
 				if(FlxG.mouse.justMoved)
 				{
-					switch (ClientPrefs.ratingCams)
-					{
-						case 'World':
-							var mousePos:FlxPoint = FlxG.mouse.getScreenPosition(camGame);
-							var addNum:Int = holdingObjectType ? 2 : 0;
-							ClientPrefs.comboOffset[addNum + 0] = Math.round((mousePos.x - startMousePos.x) + startComboOffset.x);
-							ClientPrefs.comboOffset[addNum + 1] = -Math.round((mousePos.y - startMousePos.y) - startComboOffset.y);
-							repositionCombo();
-						case 'HUD':
-							var mousePos:FlxPoint = FlxG.mouse.getScreenPosition(camHUD);
-							var addNum:Int = holdingObjectType ? 2 : 0;
-							ClientPrefs.comboOffset[addNum + 0] = Math.round((mousePos.x - startMousePos.x) + startComboOffset.x);
-							ClientPrefs.comboOffset[addNum + 1] = -Math.round((mousePos.y - startMousePos.y) - startComboOffset.y);
-							repositionCombo();
-					}
-
+					var mousePos:FlxPoint = FlxG.mouse.getScreenPosition(camHUD);
+					var addNum:Int = holdingObjectType ? 2 : 0;
+					ClientPrefs.comboOffset[addNum + 0] = Math.round((mousePos.x - startMousePos.x) + startComboOffset.x);
+					ClientPrefs.comboOffset[addNum + 1] = -Math.round((mousePos.y - startMousePos.y) - startComboOffset.y);
+					repositionCombo();
 				}
 			}
 
